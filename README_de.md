@@ -28,7 +28,7 @@ Das LibDriver NTC Tool wurde speziell für LibDriver NTC entwickelt. Mit diesem 
     - [WEIGHTED_MOVING_AVERAGE](#WEIGHTED_MOVING_AVERAGE)
     - [LIMITING](#LIMITING)
     - [KALMAN](#KALMAN)
-  - [LibDriver NTC Tool](#LibDriver NTC Tool)
+  - [LibDriver NTC Tool](#LibDriver_NTC_Tool)
     - [CLI](#CLI)
     - [GUI](#GUI)
   - [Dokument](#Dokument)

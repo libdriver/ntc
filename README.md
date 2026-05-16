@@ -28,7 +28,7 @@ LibDriver NTC Tool is a tool specifically developed for LibDriver NTC. Using thi
     - [WEIGHTED_MOVING_AVERAGE](#WEIGHTED_MOVING_AVERAGE)
     - [LIMITING](#LIMITING)
     - [KALMAN](#KALMAN)
-  - [LibDriver NTC Tool](#LibDriver NTC Tool)
+  - [LibDriver NTC Tool](#LibDriver_NTC_Tool)
     - [CLI](#CLI)
     - [GUI](#GUI)
   - [Document](#Document)
@@ -485,6 +485,7 @@ LibDriver NTC integrates several NTC filtering algorithms, including first-order
 #### FIRST_ORDER_LAG_FILTER
 
 The first-order lag filter is a technique that utilizes software algorithms to simulate the effect of hardware \(RC\) low-pass filtering. By performing a weighted average of the current sampling value and the historical filtering results, it effectively filters out high-frequency noise and glitches, retains useful signals, and makes the data output smoother and more stable.
+
 $$
 y(n) = \alpha \cdot x(n) + (1 - \alpha) \cdot y(n - 1)
 $$
@@ -492,6 +493,7 @@ $$
 #### MEDIAN
 
 Median filtering involves sampling N times in succession, sorting the results, and selecting the median value. This effectively suppresses occasional pulse interference.
+
 $$
 y(n) = med \{ x(n-k), ..., x(n), ..., x(n+k) \}
 $$
@@ -499,6 +501,7 @@ $$
 #### ANTI_SPIKE_AVERAGE
 
 The pulse interference-resistant average filter is a digital filtering algorithm that combines the advantages of "median filtering" and "arithmetic average filtering". After removing the maximum and minimum values from the sampling queue, it calculates the average value. It can effectively eliminate accidental pulse-like burst interference, while smoothing periodic noise, ensuring the stability and accuracy of the sampled data.
+
 $$
 y = \frac{1}{n-2} \left ( \sum\limits_{i = 1}^{n} {{{x}_{i}} - ({{x}_{(1)}} + {{x}_{(n)}})} \right )
 $$
@@ -506,6 +509,7 @@ $$
 #### MOVING_AVERAGE
 
 The sliding average filter maintains a fixed-length first-in first-out (FIFO) queue, adding new samples each time and calculating the average value of the queue.
+
 $$
 y(n) = \frac{1}{N} \sum \limits_{i = 0}^{N-1}{x(n-i)}
 $$
@@ -513,6 +517,7 @@ $$
 #### WEIGHTED_MOVING_AVERAGE
 
 Based on the sliding average, the weighted sliding average filter assigns higher weights to samples that are closer to the current time.
+
 $$
 y(n) = \frac {\sum \nolimits_{i = 0}^{N-1} {{{w}_{i}} \cdot x(n-i)}} {\sum \nolimits_{i = 0}^{N-1} {{{w}_{i}}}}
 $$
@@ -520,6 +525,7 @@ $$
 #### LIMITING
 
 The limiting filter compares the difference between the current sampling value and the previous valid value. If the difference exceeds the set threshold, it is discarded.
+
 $$
 y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
 $$
@@ -527,6 +533,7 @@ $$
 #### KALMAN
 
 The Kalman filter is an efficient recursive filter that estimates the internal state of a dynamic system from a noisy sequence by combining system model predictions and sensor measurement data. It is widely used in the fields of sensor data fusion, navigation, and control. Its core lies in the iterative process of "prediction-update", which can minimize the mean square error of state estimation.
+
 $$
 \hat{x}_{k \vert{} k-1} = \hat{x}_{k-1 \vert{} k-1} \\
              P_{k \vert{} k-1} = P_{k-1 \vert{} k-1} + Q \\

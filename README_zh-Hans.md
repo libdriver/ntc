@@ -28,7 +28,7 @@ LibDriver NTC Tool是一个专为LibDriver NTC开发的工具，使用该工具�
     - [加权滑动平均滤波](#加权滑动平均滤波)
     - [限幅滤波](#限幅滤波)
     - [卡尔曼滤波](#卡尔曼滤波)
-  - [LibDriver NTC Tool](#LibDriver NTC Tool)
+  - [LibDriver NTC Tool](#LibDriver_NTC_Tool)
     - [命令行](#命令行)
     - [图形界面](#图形界面)
   - [文档](#文档)
