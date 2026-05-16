@@ -28,7 +28,7 @@ Das LibDriver NTC Tool wurde speziell für LibDriver NTC entwickelt. Mit diesem 
     - [WEIGHTED_MOVING_AVERAGE](#WEIGHTED_MOVING_AVERAGE)
     - [LIMITING](#LIMITING)
     - [KALMAN](#KALMAN)
-  - [LibDriver NTC Tool](#LibDriver_NTC_Tool)
+  - [LibDriver NTC Tool](#LibDriver-NTC-Tool)
     - [CLI](#CLI)
     - [GUI](#GUI)
   - [Dokument](#Dokument)
@@ -485,6 +485,7 @@ LibDriver NTC integriert verschiedene NTC-Filteralgorithmen, darunter Filterung 
 #### FIRST_ORDER_LAG_FILTER
 
 Der Verzögerungsfilter erster Ordnung ist ein Verfahren, das Softwarealgorithmen nutzt, um die Wirkung eines Hardware-RC-Tiefpassfilters zu simulieren. Durch die Berechnung eines gewichteten Mittelwerts aus dem aktuellen Abtastwert und den bisherigen Filterergebnissen werden hochfrequente Störungen und Aussetzer effektiv herausgefiltert, Nutzsignale erhalten und die Datenausgabe geglättet und stabilisiert.
+
 $$
 y(n) = \alpha \cdot x(n) + (1 - \alpha) \cdot y(n - 1)
 $$
@@ -492,6 +493,7 @@ $$
 #### MEDIAN
 
 Die Medianfilterung beinhaltet die N-fache Abtastung nacheinander, das Sortieren der Ergebnisse und die Auswahl des Medianwerts. Dadurch werden gelegentliche Impulsstörungen wirksam unterdrückt.
+
 $$
 y(n) = med \{ x(n-k), ..., x(n), ..., x(n+k) \}
 $$
@@ -499,6 +501,7 @@ $$
 #### ANTI_SPIKE_AVERAGE
 
 Der impulsstörresistente Mittelwertfilter ist ein digitaler Filteralgorithmus, der die Vorteile der Medianfilterung und der arithmetischen Mittelwertfilterung vereint. Nach dem Entfernen der Maximal- und Minimalwerte aus der Abtastfolge berechnet er den Mittelwert. Dadurch werden impulsartige Störungen effektiv eliminiert und periodisches Rauschen geglättet, was die Stabilität und Genauigkeit der Abtastdaten gewährleistet.
+
 $$
 y = \frac{1}{n-2} \left ( \sum\limits_{i = 1}^{n} {{{x}_{i}} - ({{x}_{(1)}} + {{x}_{(n)}})} \right )
 $$
@@ -506,6 +509,7 @@ $$
 #### MOVING_AVERAGE
 
 Der gleitende Mittelwertfilter verwendet eine Warteschlange mit fester Länge nach dem FIFO-Prinzip (First-In First-Out), fügt jedes Mal neue Abtastwerte hinzu und berechnet den Mittelwert der Warteschlange.
+
 $$
 y(n) = \frac{1}{N} \sum \limits_{i = 0}^{N-1}{x(n-i)}
 $$
@@ -513,6 +517,7 @@ $$
 #### WEIGHTED_MOVING_AVERAGE
 
 Basierend auf dem gleitenden Durchschnitt weist der gewichtete gleitende Durchschnittsfilter den Abtastwerten, die näher am aktuellen Zeitpunkt liegen, höhere Gewichte zu.
+
 $$
 y(n) = \frac {\sum \nolimits_{i = 0}^{N-1} {{{w}_{i}} \cdot x(n-i)}} {\sum \nolimits_{i = 0}^{N-1} {{{w}_{i}}}}
 $$
@@ -520,6 +525,7 @@ $$
 #### LIMITING
 
 Der Begrenzungsfilter vergleicht die Differenz zwischen dem aktuellen Abtastwert und dem vorherigen gültigen Wert. Überschreitet die Differenz den festgelegten Schwellenwert, wird der Wert verworfen.
+
 $$
 y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
 $$
@@ -527,6 +533,7 @@ $$
 #### KALMAN
 
 Der Kalman-Filter ist ein effizienter, rekursiver Filter, der den internen Zustand eines dynamischen Systems aus einer verrauschten Sequenz schätzt, indem er Systemmodellvorhersagen und Sensormessdaten kombiniert. Er findet breite Anwendung in den Bereichen Sensordatenfusion, Navigation und Regelungstechnik. Sein Kern besteht im iterativen Prozess der „Vorhersage-Aktualisierung“, der den mittleren quadratischen Fehler der Zustandsschätzung minimiert.
+
 $$
 \hat{x}_{k \vert{} k-1} = \hat{x}_{k-1 \vert{} k-1} \\
              P_{k \vert{} k-1} = P_{k-1 \vert{} k-1} + Q \\
