@@ -1,0 +1,27 @@
+var structntc__handle__s =
+[
+    [ "a", "structntc__handle__s.html#a1031d0e0a97a340abfe0a6ab9e831045", null ],
+    [ "adc_deinit", "structntc__handle__s.html#a8139c93cd06688c7294cbf79e1a3d06f", null ],
+    [ "adc_init", "structntc__handle__s.html#a4c3c27f5a81029bba9748e1d4c402cf0", null ],
+    [ "adc_read", "structntc__handle__s.html#a44e2f97d2bef5d6ee0e13f79c183a6ff", null ],
+    [ "algorithm", "structntc__handle__s.html#a667f83dab4442a82405f7b56b8b9a64a", null ],
+    [ "b", "structntc__handle__s.html#a1510a66dacf9cf3586de5fc89ae2a073", null ],
+    [ "beta", "structntc__handle__s.html#aa773d9a6c0ccefaa0fc9ab66fec68ec1", null ],
+    [ "buf", "structntc__handle__s.html#a113268fd9ca546b83944b3844d967f35", null ],
+    [ "buf_flt", "structntc__handle__s.html#a01fa83719cf91de2badd2826ba79d7dd", null ],
+    [ "c", "structntc__handle__s.html#a2c09e929a6ea340fc9653cca414b11d3", null ],
+    [ "cache_flt", "structntc__handle__s.html#a45dc37414a9e473fdf218249290962ce", null ],
+    [ "circuit", "structntc__handle__s.html#a476c3fa241088f795c4297e696bf0e18", null ],
+    [ "debug_print", "structntc__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b", null ],
+    [ "delay_ms", "structntc__handle__s.html#a406c9433252b7366de417b7a60915c81", null ],
+    [ "filter", "structntc__handle__s.html#aa69d890d38e8a1abafc8697d1760bb04", null ],
+    [ "filter_len", "structntc__handle__s.html#ac6198a2afdf2b5507d2e12010dc68f55", null ],
+    [ "filter_pointer", "structntc__handle__s.html#a0865f9b02ba148356df4e31c679a4d9b", null ],
+    [ "inited", "structntc__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f", null ],
+    [ "param_flt", "structntc__handle__s.html#a61b406d8d2df7a763654c0464102b25d", null ],
+    [ "r25_ohm", "structntc__handle__s.html#afe9750bc68aa9fc60f351838d80feaf8", null ],
+    [ "r_fixed_ohm", "structntc__handle__s.html#a2d905e4d70651b42143928af6aed5cff", null ],
+    [ "table", "structntc__handle__s.html#a1a889d17996ad872e05995153058f32b", null ],
+    [ "table_len", "structntc__handle__s.html#a1ea71e70657b56b17f6627b419d86122", null ],
+    [ "vcc_counter", "structntc__handle__s.html#a7329cc63b5f2cfa2dc9b41e5e330cc76", null ]
+];

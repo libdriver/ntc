@@ -1,0 +1,7 @@
+pandas>=3.0.0
+openpyxl>=3.0.0
+numpy>=2.0.0
+typer>=0.20.0
+PySide6>=6.0.0
+pyqtgraph>=0.10.0
+pyqtdarktheme>=0.1.0

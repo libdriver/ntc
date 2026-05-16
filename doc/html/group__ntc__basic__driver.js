@@ -1,0 +1,86 @@
+var group__ntc__basic__driver =
+[
+    [ "ntc_table_s", "structntc__table__s.html", [
+      [ "degrees_celsius", "structntc__table__s.html#af5d600bbeb718eff4905724a1b7c2707", null ],
+      [ "ohm", "structntc__table__s.html#a097bed1daf59cba6d0d458db04539c82", null ]
+    ] ],
+    [ "ntc_handle_s", "structntc__handle__s.html", [
+      [ "a", "structntc__handle__s.html#a1031d0e0a97a340abfe0a6ab9e831045", null ],
+      [ "adc_deinit", "structntc__handle__s.html#a8139c93cd06688c7294cbf79e1a3d06f", null ],
+      [ "adc_init", "structntc__handle__s.html#a4c3c27f5a81029bba9748e1d4c402cf0", null ],
+      [ "adc_read", "structntc__handle__s.html#a44e2f97d2bef5d6ee0e13f79c183a6ff", null ],
+      [ "algorithm", "structntc__handle__s.html#a667f83dab4442a82405f7b56b8b9a64a", null ],
+      [ "b", "structntc__handle__s.html#a1510a66dacf9cf3586de5fc89ae2a073", null ],
+      [ "beta", "structntc__handle__s.html#aa773d9a6c0ccefaa0fc9ab66fec68ec1", null ],
+      [ "buf", "structntc__handle__s.html#a113268fd9ca546b83944b3844d967f35", null ],
+      [ "buf_flt", "structntc__handle__s.html#a01fa83719cf91de2badd2826ba79d7dd", null ],
+      [ "c", "structntc__handle__s.html#a2c09e929a6ea340fc9653cca414b11d3", null ],
+      [ "cache_flt", "structntc__handle__s.html#a45dc37414a9e473fdf218249290962ce", null ],
+      [ "circuit", "structntc__handle__s.html#a476c3fa241088f795c4297e696bf0e18", null ],
+      [ "debug_print", "structntc__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b", null ],
+      [ "delay_ms", "structntc__handle__s.html#a406c9433252b7366de417b7a60915c81", null ],
+      [ "filter", "structntc__handle__s.html#aa69d890d38e8a1abafc8697d1760bb04", null ],
+      [ "filter_len", "structntc__handle__s.html#ac6198a2afdf2b5507d2e12010dc68f55", null ],
+      [ "filter_pointer", "structntc__handle__s.html#a0865f9b02ba148356df4e31c679a4d9b", null ],
+      [ "inited", "structntc__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f", null ],
+      [ "param_flt", "structntc__handle__s.html#a61b406d8d2df7a763654c0464102b25d", null ],
+      [ "r25_ohm", "structntc__handle__s.html#afe9750bc68aa9fc60f351838d80feaf8", null ],
+      [ "r_fixed_ohm", "structntc__handle__s.html#a2d905e4d70651b42143928af6aed5cff", null ],
+      [ "table", "structntc__handle__s.html#a1a889d17996ad872e05995153058f32b", null ],
+      [ "table_len", "structntc__handle__s.html#a1ea71e70657b56b17f6627b419d86122", null ],
+      [ "vcc_counter", "structntc__handle__s.html#a7329cc63b5f2cfa2dc9b41e5e330cc76", null ]
+    ] ],
+    [ "ntc_info_s", "structntc__info__s.html", [
+      [ "chip_name", "structntc__info__s.html#af890958c72bd715cc6454a10dc846ae6", null ],
+      [ "driver_version", "structntc__info__s.html#a41b0bd442708b70d252c50b92c75265a", null ],
+      [ "interface", "structntc__info__s.html#aebaa6c28dd4f2c3dc27566fcb910fd28", null ],
+      [ "manufacturer_name", "structntc__info__s.html#ad25285dbf810c90f8eaf3fcef6f2b2ea", null ],
+      [ "max_current_ma", "structntc__info__s.html#a9db82802561bf22d799b03a345f1d1dc", null ],
+      [ "supply_voltage_max_v", "structntc__info__s.html#a3d2b12bcac7a85ea8646bff9debe8660", null ],
+      [ "supply_voltage_min_v", "structntc__info__s.html#ad8bde6ddadaf43d951e62f3befb9d35a", null ],
+      [ "temperature_max", "structntc__info__s.html#a3366a5dce9b829e03c3d321c2b4df3f6", null ],
+      [ "temperature_min", "structntc__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e", null ]
+    ] ],
+    [ "NTC_FILTER_BUFFER_SIZE", "group__ntc__basic__driver.html#ga22e30ba080cf203b349681ff3fcde35b", null ],
+    [ "ntc_handle_t", "group__ntc__basic__driver.html#gaa05d0e9ddb6138aaec934f5122ede6f6", null ],
+    [ "ntc_info_t", "group__ntc__basic__driver.html#ga6b36e623eeec7d18d07c6f5b6a3d8ba1", null ],
+    [ "ntc_table_t", "group__ntc__basic__driver.html#gabedc07c60c20e288a1ec6d413554461f", null ],
+    [ "ntc_algorithm_t", "group__ntc__basic__driver.html#ga433b63c940de853f7346e4b5e67b0816", [
+      [ "NTC_ALGORITHM_BETA_FORMULA", "group__ntc__basic__driver.html#gga433b63c940de853f7346e4b5e67b0816a6dd60924716ac900f694479d91d097d5", null ],
+      [ "NTC_ALGORITHM_STEINHART_HART", "group__ntc__basic__driver.html#gga433b63c940de853f7346e4b5e67b0816ad3b27bf415b36214105557ade76ccd1a", null ],
+      [ "NTC_ALGORITHM_LOOKUP_TABLE", "group__ntc__basic__driver.html#gga433b63c940de853f7346e4b5e67b0816a14f8011cb5d6cf8aa7d28be3b691413e", null ]
+    ] ],
+    [ "ntc_circuit_t", "group__ntc__basic__driver.html#ga504b4491beea3bd42ece124ad7c56f0a", [
+      [ "NTC_CIRCUIT_VCC_NTC_R_GND", "group__ntc__basic__driver.html#gga504b4491beea3bd42ece124ad7c56f0aa60743c352bfd36b68092f1fd013d07dc", null ],
+      [ "NTC_CIRCUIT_VCC_R_NTC_GND", "group__ntc__basic__driver.html#gga504b4491beea3bd42ece124ad7c56f0aa2e35d4eab95c1f73289e3953b26e6175", null ]
+    ] ],
+    [ "ntc_filter_t", "group__ntc__basic__driver.html#ga22ec82008901d6789a9a4981ddd176e1", [
+      [ "NTC_FILTER_NONE", "group__ntc__basic__driver.html#gga22ec82008901d6789a9a4981ddd176e1a6f12b7dc564a6d89926e490dc892efb3", null ],
+      [ "NTC_FILTER_FIRST_ORDER_LAG", "group__ntc__basic__driver.html#gga22ec82008901d6789a9a4981ddd176e1a57db910d425e633f9edb32aabf94ee7a", null ],
+      [ "NTC_FILTER_MEDIAN", "group__ntc__basic__driver.html#gga22ec82008901d6789a9a4981ddd176e1a22699fb2e8eaa364deb1e7b3d2c2ebec", null ],
+      [ "NTC_FILTER_ANTI_SPIKE_AVERAGE", "group__ntc__basic__driver.html#gga22ec82008901d6789a9a4981ddd176e1a4670104eda86f0f8459b4dafc22a4ff4", null ],
+      [ "NTC_FILTER_MOVING_AVERAGE", "group__ntc__basic__driver.html#gga22ec82008901d6789a9a4981ddd176e1a746674de92a65442871bf7b33da85d20", null ],
+      [ "NTC_FILTER_WEIGHTED_MOVING_AVERAGE", "group__ntc__basic__driver.html#gga22ec82008901d6789a9a4981ddd176e1ac6b2ad55bb1f39054632b726285395f2", null ],
+      [ "NTC_FILTER_LIMITING", "group__ntc__basic__driver.html#gga22ec82008901d6789a9a4981ddd176e1af0d72bb3f0f175b50d10c6d43f085a12", null ],
+      [ "NTC_FILTER_KALMAN", "group__ntc__basic__driver.html#gga22ec82008901d6789a9a4981ddd176e1a7de4b2a6b639302a2e1a6e2ebede179f", null ]
+    ] ],
+    [ "ntc_calculate_temperature", "group__ntc__basic__driver.html#gad007219f87dea8698b1bc5ac4014604c", null ],
+    [ "ntc_calculate_temperature_with_filter", "group__ntc__basic__driver.html#ga633c18743c09b15f43db8aaa7711f3f9", null ],
+    [ "ntc_deinit", "group__ntc__basic__driver.html#gab5d80c6ff20782705311b5603dbcf716", null ],
+    [ "ntc_get_algorithm", "group__ntc__basic__driver.html#ga77379b7df1a4bf85dcab0d609b465f68", null ],
+    [ "ntc_get_algorithm_beta_formula_beta_value", "group__ntc__basic__driver.html#ga59109a7d1216cf00a8b38013a31839a7", null ],
+    [ "ntc_get_algorithm_beta_formula_r25_ohm", "group__ntc__basic__driver.html#ga9fc0d0bb235bc650245177a9c6bdf732", null ],
+    [ "ntc_get_algorithm_steinhart_hart", "group__ntc__basic__driver.html#gab4124331b48e93d51e804bd05129ecc7", null ],
+    [ "ntc_get_circuit", "group__ntc__basic__driver.html#ga5689b4513a1f48f5ac820a93683cc54e", null ],
+    [ "ntc_get_circuit_fixed_resistor", "group__ntc__basic__driver.html#ga25d5ed884d25e61576d4ce82e2400045", null ],
+    [ "ntc_info", "group__ntc__basic__driver.html#ga297aaa8a0d2de1f7c1959e53069dd853", null ],
+    [ "ntc_init", "group__ntc__basic__driver.html#ga4d08239a50c52eef93d7c34724499923", null ],
+    [ "ntc_load_algorithm_lookup_table", "group__ntc__basic__driver.html#ga1109a996faf2b45d2862e4b5947ece7b", null ],
+    [ "ntc_read_temperature", "group__ntc__basic__driver.html#ga0571c67d1c7863733c6f1d050d2ac445", null ],
+    [ "ntc_set_algorithm", "group__ntc__basic__driver.html#ga228031d2d82c3a312c835c5b6d47d223", null ],
+    [ "ntc_set_algorithm_beta_formula_beta_value", "group__ntc__basic__driver.html#ga823f758c6a3466b738b34c6bdcb45bfb", null ],
+    [ "ntc_set_algorithm_beta_formula_r25_ohm", "group__ntc__basic__driver.html#ga2ed2d73894b576ca553dc0ea68663fcf", null ],
+    [ "ntc_set_algorithm_steinhart_hart", "group__ntc__basic__driver.html#ga07f8225bde03c6c238cb78acc33c595f", null ],
+    [ "ntc_set_circuit", "group__ntc__basic__driver.html#ga0cf5adbcd4d2d7af64c5c53fd6cd7b49", null ],
+    [ "ntc_set_circuit_fixed_resistor", "group__ntc__basic__driver.html#gad882bca81f2b4156cbc543e5fdfa0c4f", null ]
+];
