@@ -527,9 +527,10 @@ $$
 限幅滤波比较当前采样值与上一次有效值的差值，若超过设定的门限则丢弃。
 
 $$
-\begin{gathered}
-y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
-\end{gathered}
+y(n) = \begin{cases} 
+x(n) & |x(n) - y(n-1)| \le \Delta \\ 
+y(n-1) & |x(n) - y(n-1)| > \Delta 
+\end{cases}
 $$
 
 #### 卡尔曼滤波

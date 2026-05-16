@@ -527,9 +527,10 @@ $$
 Der Begrenzungsfilter vergleicht die Differenz zwischen dem aktuellen Abtastwert und dem vorherigen gültigen Wert. Überschreitet die Differenz den festgelegten Schwellenwert, wird der Wert verworfen.
 
 $$
-\begin{gathered}
-y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
-\end{gathered}
+y(n) = \begin{cases} 
+x(n) & |x(n) - y(n-1)| \le \Delta \\ 
+y(n-1) & |x(n) - y(n-1)| > \Delta 
+\end{cases}
 $$
 
 #### KALMAN

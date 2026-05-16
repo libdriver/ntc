@@ -527,9 +527,10 @@ $$
 제한 필터는 현재 샘플링 값과 이전 유효 값의 차이를 비교합니다. 차이가 설정된 임계값을 초과하면 해당 값은 폐기됩니다.
 
 $$
-\begin{gathered}
-y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
-\end{gathered}
+y(n) = \begin{cases} 
+x(n) & |x(n) - y(n-1)| \le \Delta \\ 
+y(n-1) & |x(n) - y(n-1)| > \Delta 
+\end{cases}
 $$
 
 #### 칼만함수

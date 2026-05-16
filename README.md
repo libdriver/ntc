@@ -527,9 +527,10 @@ $$
 The limiting filter compares the difference between the current sampling value and the previous valid value. If the difference exceeds the set threshold, it is discarded.
 
 $$
-\begin{gathered}
-y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
-\end{gathered}
+y(n) = \begin{cases} 
+x(n) & |x(n) - y(n-1)| \le \Delta \\ 
+y(n-1) & |x(n) - y(n-1)| > \Delta 
+\end{cases}
 $$
 
 #### KALMAN
@@ -539,13 +540,9 @@ The Kalman filter is an efficient recursive filter that estimates the internal s
 $$
 \begin{gathered}
 \hat{x}_{k \vert{} k-1} = \hat{x}_{k-1 \vert{} k-1} \\
-
              P_{k \vert{} k-1} = P_{k-1 \vert{} k-1} + Q \\
-
              K_k = \frac{P_{k \vert{} k-1}}{P_{k \vert{} k-1} + R} \\
-
              \hat{x}_{k \vert{} k} = \hat{x}_{k \vert{} k-1} + K_k(z_k - \hat{x}_{k \vert{} k-1}) \\
-
              P_{k \vert{} k} = (1 - K_k)P_{k \vert{} k-1}
 \end{gathered}
 $$

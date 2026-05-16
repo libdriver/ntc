@@ -527,9 +527,10 @@ $$
 リミッティングフィルタは、現在のサンプリング値と前の有効な値との差を比較します。差が設定された閾値を超えた場合、その値は破棄されます。
 
 $$
-\begin{gathered}
-y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
-\end{gathered}
+y(n) = \begin{cases} 
+x(n) & |x(n) - y(n-1)| \le \Delta \\ 
+y(n-1) & |x(n) - y(n-1)| > \Delta 
+\end{cases}
 $$
 
 #### カルマンフィルター
