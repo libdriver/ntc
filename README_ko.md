@@ -22,22 +22,14 @@ LibDriver NTC Tool은 LibDriver NTC를 위해 특별히 개발된 도구입니�
     - [example basic](#example-basic)
   - [필터](#필터)
     - [1차지연필터](#1차지연필터)
-    
     - [중앙값](#중앙값)
-    
     - [스파이크방지평균](#스파이크방지평균)
-    
     - [이동평균](#이동평균)
-    
     - [가중이동평균](#가중이동평균)
-    
     - [제한](#제한)
-    
     - [칼만함수](#칼만함수)
-    
   - [LibDriver NTC Tool](#LibDriver-NTC-Tool)
 - [CLI](#CLI)
-  
 - [GUI](#GUI)
   - [문서](#문서)
   - [기고](#기고)
@@ -535,7 +527,9 @@ $$
 제한 필터는 현재 샘플링 값과 이전 유효 값의 차이를 비교합니다. 차이가 설정된 임계값을 초과하면 해당 값은 폐기됩니다.
 
 $$
+\begin{gathered}
 y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
+\end{gathered}
 $$
 
 #### 칼만함수
@@ -543,11 +537,13 @@ $$
 칼만 필터는 시스템 모델 예측과 센서 측정 데이터를 결합하여 잡음이 섞인 시퀀스로부터 동적 시스템의 내부 상태를 효율적으로 추정하는 재귀 필터입니다. 센서 데이터 융합, 내비게이션, 제어 분야에서 널리 사용됩니다. 칼만 필터의 핵심은 "예측-업데이트"의 반복 과정을 통해 상태 추정의 평균 제곱 오차를 최소화하는 데 있습니다.
 
 $$
+\begin{gathered}
 \hat{x}_{k \vert{} k-1} = \hat{x}_{k-1 \vert{} k-1} \\
              P_{k \vert{} k-1} = P_{k-1 \vert{} k-1} + Q \\
              K_k = \frac{P_{k \vert{} k-1}}{P_{k \vert{} k-1} + R} \\
              \hat{x}_{k \vert{} k} = \hat{x}_{k \vert{} k-1} + K_k(z_k - \hat{x}_{k \vert{} k-1}) \\
              P_{k \vert{} k} = (1 - K_k)P_{k \vert{} k-1}
+\end{gathered}
 $$
 
 ### LibDriver NTC Tool
@@ -642,19 +638,19 @@ python ntc_utils.py -c gui
 시작 화면은 다음과 같습니다. 오른쪽 상단에는 언어 전환 목록이 있으며, 여기에서 영어, 중국어 간체, 중국어 번체, 일본어, 독일어 및 한국어를 선택할 수 있습니다.
 
 <div align=center>
-<img src="/doc/image/ko/main.png"/>
+<img src="/doc/image/ko/main.png" width="750" height="561"/>
 </div>
 
 "Excel 가져오기"를 클릭하면 프로그램이 Excel 데이터를 가져와 저항-온도 특성 곡선을 그립니다. 내보낼 헤더 파일의 이름을 설정하고 "C 헤더 파일 생성"을 클릭하면 조회 테이블 C 헤더 파일을 생성하고 파일이 저장된 디렉토리를 열 수 있습니다.
 
 <div align=center>
-<img src="/doc/image/ko/table.png"/>
+<img src="/doc/image/ko/table.png" width="750" height="561"/>
 </div>
 
 온도 지점 T0, T1, T2를 계산하기 위한 스테인하트-하트 계수를 설정합니다. "스테인하트-하트 계산"을 클릭하여 이 세 지점을 기반으로 스테인하트-하트 계수를 계산하고 결과를 표시합니다. 동시에 이러한 매개변수를 기반으로 저항-온도 특성 곡선을 그려 원본 데이터와의 차이를 비교합니다.
 
 <div align=center>
-<img src="/doc/image/ko/sh.png"/>
+<img src="/doc/image/ko/sh.png" width="750" height="561"/>
 </div>
 
 ### 문서

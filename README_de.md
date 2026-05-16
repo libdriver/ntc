@@ -527,7 +527,9 @@ $$
 Der Begrenzungsfilter vergleicht die Differenz zwischen dem aktuellen Abtastwert und dem vorherigen gültigen Wert. Überschreitet die Differenz den festgelegten Schwellenwert, wird der Wert verworfen.
 
 $$
+\begin{gathered}
 y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
+\end{gathered}
 $$
 
 #### KALMAN
@@ -535,11 +537,13 @@ $$
 Der Kalman-Filter ist ein effizienter, rekursiver Filter, der den internen Zustand eines dynamischen Systems aus einer verrauschten Sequenz schätzt, indem er Systemmodellvorhersagen und Sensormessdaten kombiniert. Er findet breite Anwendung in den Bereichen Sensordatenfusion, Navigation und Regelungstechnik. Sein Kern besteht im iterativen Prozess der „Vorhersage-Aktualisierung“, der den mittleren quadratischen Fehler der Zustandsschätzung minimiert.
 
 $$
+\begin{gathered}
 \hat{x}_{k \vert{} k-1} = \hat{x}_{k-1 \vert{} k-1} \\
              P_{k \vert{} k-1} = P_{k-1 \vert{} k-1} + Q \\
              K_k = \frac{P_{k \vert{} k-1}}{P_{k \vert{} k-1} + R} \\
              \hat{x}_{k \vert{} k} = \hat{x}_{k \vert{} k-1} + K_k(z_k - \hat{x}_{k \vert{} k-1}) \\
              P_{k \vert{} k} = (1 - K_k)P_{k \vert{} k-1}
+\end{gathered}
 $$
 
 ### LibDriver NTC Tool
@@ -634,19 +638,19 @@ python ntc_utils.py -c gui
 Die Startoberfläche sieht wie folgt aus. In der oberen rechten Ecke befindet sich eine Sprachauswahlliste, in der Sie English，简体中文，繁體中文，日本語， Deutsch and 한국어.
 
 <div align=center>
-<img src="/doc/image/de/main.png"/>
+<img src="/doc/image/de/main.png" width="750" height="561"/>
 </div>
 
 Klicken Sie auf „Excel importieren“. Das Programm importiert die Excel-Daten und erstellt die Widerstands-Temperatur-Kennlinie. Geben Sie den Namen der exportierten Header-Datei an, klicken Sie auf „C-Header-Datei generieren“, um eine Lookup-Tabellen-C-Header-Datei zu erstellen und das Verzeichnis zu öffnen, in dem die Datei gespeichert ist.
 
 <div align=center>
-<img src="/doc/image/de/table.png"/>
+<img src="/doc/image/de/table.png" width="750" height="561"/>
 </div>
 
 Legen Sie die Steinhart-Hart-Koeffizienten für die Berechnung der Temperaturpunkte T0, T1 und T2 fest. Klicken Sie auf „Steinhart-Hart berechnen“, um die Steinhart-Hart-Koeffizienten anhand dieser drei Punkte zu berechnen und die Ergebnisse anzuzeigen. Stellen Sie gleichzeitig die Widerstands-Temperatur-Kennlinie anhand dieser Parameter grafisch dar, um die Abweichungen von den Originaldaten zu vergleichen.
 
 <div align=center>
-<img src="/doc/image/de/sh.png"/>
+<img src="/doc/image/de/sh.png" width="750" height="561"/>
 </div>
 
 ### Dokument

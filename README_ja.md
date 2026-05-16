@@ -22,22 +22,14 @@ LibDriver NTCツールは、LibDriver NTC専用に開発されたツールです
     - [example basic](#example-basic)
   - [フィルター](#フィルター)
     - [一次遅延フィルター](#一次遅延フィルター)
-
     - [中央値](#中央値)
-
     - [スパイク防止平均](#スパイク防止平均)
-
     - [移動平均](#移動平均)
-
     - [加重移動平均](#加重移動平均)
-
     - [制限値](#制限値)
-
     - [カルマンフィルター](#カルマンフィルター)
-    
 - [LibDriver NTC Tool](#LibDriver-NTC-Tool)
   - [CLI](#CLI)
-    
   - [GUI](#GUI)
 - [ドキュメント](#ドキュメント)
 - [貢献](#貢献)
@@ -535,7 +527,9 @@ $$
 リミッティングフィルタは、現在のサンプリング値と前の有効な値との差を比較します。差が設定された閾値を超えた場合、その値は破棄されます。
 
 $$
+\begin{gathered}
 y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
+\end{gathered}
 $$
 
 #### カルマンフィルター
@@ -543,14 +537,16 @@ $$
 カルマンフィルタは、システムモデル予測とセンサ計測データを組み合わせることで、ノイズを含む時系列データから動的システムの内部状態を推定する効率的な再帰フィルタです。センサデータ融合、ナビゲーション、制御などの分野で広く用いられています。その核心は、「予測更新」の反復処理にあり、これにより状態推定の平均二乗誤差を最小化できます。
 
 $$
+\begin{gathered}
 \hat{x}_{k \vert{} k-1} = \hat{x}_{k-1 \vert{} k-1} \\
              P_{k \vert{} k-1} = P_{k-1 \vert{} k-1} + Q \\
              K_k = \frac{P_{k \vert{} k-1}}{P_{k \vert{} k-1} + R} \\
              \hat{x}_{k \vert{} k} = \hat{x}_{k \vert{} k-1} + K_k(z_k - \hat{x}_{k \vert{} k-1}) \\
              P_{k \vert{} k} = (1 - K_k)P_{k \vert{} k-1}
+\end{gathered}
 $$
 
-### LibDriver NTC
+### LibDriver NTC Tool
 
 LibDriver NTCは、ルックアップテーブル方式に必要なヘッダーファイルを迅速に生成するためのツールを提供します。このツールを使用すると、ExcelファイルをLibDriver NTCで使用できるヘッダーファイルに素早く変換できます。さらに、このツールはスタインハート・ハート係数を計算できます。Excelデータから任意の3つの非一致点を選択することで、スタインハート・ハート係数A、B、Cを計算できます。このツールは、コマンドラインモードとグラフィカルインターフェースモードの両方に対応しています。
 
@@ -642,19 +638,19 @@ python ntc_utils.py -c gui
 起動画面は以下のとおりです。右上隅に言語切り替えリストがあり、English，简体中文，繁體中文，日本語， Deutsch and 한국어.
 
 <div align=center>
-<img src="/doc/image/ja/main.png"/>
+<img src="/doc/image/ja/main.png" width="750" height="561"/>
 </div>
 
 「Excelをインポート」をクリックすると、プログラムがExcelデータをインポートし、抵抗-温度特性曲線をプロットします。エクスポートするヘッダーファイルの名前を設定し、「Cヘッダーファイルを生成」をクリックすると、ルックアップテーブルCヘッダーファイルを生成し、ファイルが保存されているディレクトリを開くことができます。
 
 <div align=center>
-<img src="/doc/image/ja/table.png"/>
+<img src="/doc/image/ja/table.png" width="750" height="561"/>
 </div>
 
 温度点T0、T1、T2を計算するためのスタインハート・ハート係数を設定します。「スタインハート・ハート係数を計算」をクリックすると、これら3点に基づいてスタインハート・ハート係数が計算され、結果が表示されます。同時に、これらのパラメータに基づいて抵抗-温度特性曲線をプロットし、元のデータとの差異を比較します。
 
 <div align=center>
-<img src="/doc/image/ja/sh.png"/>
+<img src="/doc/image/ja/sh.png" width="750" height="561"/>
 </div>
 
 ### ドキュメント

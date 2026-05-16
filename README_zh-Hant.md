@@ -527,7 +527,9 @@ $$
 限幅濾波比較當前採樣值與上一次有效值的差值，若超過設定的門限則捨棄。
 
 $$
+\begin{gathered}
 y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
+\end{gathered}
 $$
 
 #### 卡爾曼濾波
@@ -535,11 +537,13 @@ $$
 卡爾曼濾波器是一種高效的遞迴濾波器，通過結合系統模型預測和感測器測量數據，從帶雜訊的序列中估計動態系統的內部狀態。它在感測器數據融合、導航和控制領域應用廣泛，其核心在於「預測-更新」的迭代過程，能夠最小化狀態估計的均方誤差。
 
 $$
+\begin{gathered}
 \hat{x}_{k \vert{} k-1} = \hat{x}_{k-1 \vert{} k-1} \\
              P_{k \vert{} k-1} = P_{k-1 \vert{} k-1} + Q \\
              K_k = \frac{P_{k \vert{} k-1}}{P_{k \vert{} k-1} + R} \\
              \hat{x}_{k \vert{} k} = \hat{x}_{k \vert{} k-1} + K_k(z_k - \hat{x}_{k \vert{} k-1}) \\
              P_{k \vert{} k} = (1 - K_k)P_{k \vert{} k-1}
+\end{gathered}
 $$
 
 ### LibDriver NTC Tool
@@ -634,19 +638,19 @@ python ntc_utils.py -c gui
 啟動界面如下，右上角為語言切換列表，可以選擇English，简体中文，繁體中文，日本語， Deutsch和한국어。
 
 <div align=center>
-<img src="/doc/image/zh-Hant/main.png"/>
+<img src="/doc/image/zh-Hant/main.png" width="750" height="561"/>
 </div>
 
 點擊導入Excel，程式會導入Excel數據，並繪製電阻-溫度特性圖。設置導出頭文件名字，點擊生成C頭文件，可以生成查表法C頭文件並打開該文件存儲目錄。
 
 <div align=center>
-<img src="/doc/image/zh-Hant/table.png"/>
+<img src="/doc/image/zh-Hant/table.png" width="750" height="561"/>
 </div>
 
 設定Steinhart Hart係數計算溫度點T0，T1和T2，點擊計算Steinhart-Hart係數，可計算基於三點的Steinhart Hart係數並輸出顯示，同時繪製基於該參數的電阻與溫度特性圖，用於比較與原始數據的差異。
 
 <div align=center>
-<img src="/doc/image/zh-Hant/sh.png"/>
+<img src="/doc/image/zh-Hant/sh.png" width="750" height="561"/>
 </div>
 
 ### 文檔

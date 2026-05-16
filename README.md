@@ -527,7 +527,9 @@ $$
 The limiting filter compares the difference between the current sampling value and the previous valid value. If the difference exceeds the set threshold, it is discarded.
 
 $$
+\begin{gathered}
 y(n) = \begin{cases} x(n) & |x(n) - y(n-1)| \le \Delta \\ y(n-1) & |x(n) - y(n-1)| > \Delta \end{cases}
+\end{gathered}
 $$
 
 #### KALMAN
@@ -535,11 +537,17 @@ $$
 The Kalman filter is an efficient recursive filter that estimates the internal state of a dynamic system from a noisy sequence by combining system model predictions and sensor measurement data. It is widely used in the fields of sensor data fusion, navigation, and control. Its core lies in the iterative process of "prediction-update", which can minimize the mean square error of state estimation.
 
 $$
+\begin{gathered}
 \hat{x}_{k \vert{} k-1} = \hat{x}_{k-1 \vert{} k-1} \\
+
              P_{k \vert{} k-1} = P_{k-1 \vert{} k-1} + Q \\
+
              K_k = \frac{P_{k \vert{} k-1}}{P_{k \vert{} k-1} + R} \\
+
              \hat{x}_{k \vert{} k} = \hat{x}_{k \vert{} k-1} + K_k(z_k - \hat{x}_{k \vert{} k-1}) \\
+
              P_{k \vert{} k} = (1 - K_k)P_{k \vert{} k-1}
+\end{gathered}
 $$
 
 ### LibDriver NTC Tool
@@ -634,19 +642,19 @@ python ntc_utils.py -c gui
 The startup interface is as follows. On the top right corner is a language switching list, where you can choose English，简体中文，繁體中文，日本語， Deutsch and 한국어.
 
 <div align=center>
-<img src="/doc/image/en/main.png"/>
+<img src="/doc/image/en/main.png" width="750" height="561"/>
 </div>
 
 Click "Import Excel" and the program will import the Excel data and plot the resistance-temperature characteristic curve. Set the name of the exported header file, click "Generate C Header File", and you can generate a lookup table C header file and open the directory where the file is stored.
 
 <div align=center>
-<img src="/doc/image/en/table.png"/>
+<img src="/doc/image/en/table.png" width="750" height="561"/>
 </div>
 
 Set the Steinhart-Hart coefficients for calculating temperature points T0, T1, and T2. Click "Calculate Steinhart-Hart" to compute the Steinhart-Hart coefficients based on these three points and display the results. Simultaneously, plot the resistance-temperature characteristic curve based on these parameters for comparing the differences with the original data.
 
 <div align=center>
-<img src="/doc/image/en/sh.png"/>
+<img src="/doc/image/en/sh.png " width="750" height="561"/>
 </div>
 
 ### Document
