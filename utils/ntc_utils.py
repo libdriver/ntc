@@ -40,7 +40,8 @@ from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QLa
     QToolButton, QFrame, QMenuBar, QMainWindow, QFileDialog, QMessageBox
 from datetime import datetime
 
-def load_excel(file_name) :
+
+def load_excel(file_name):
     """
     load excel file
     :param file_name: excel file name
@@ -48,7 +49,7 @@ def load_excel(file_name) :
     """
 
     # read the ntc table sheet
-    sheet = pd.read_excel(file_name, sheet_name = 'ntc table')
+    sheet = pd.read_excel(file_name, sheet_name='ntc table')
 
     # create a temperature list
     temperature_list = []
@@ -57,7 +58,7 @@ def load_excel(file_name) :
     resistance_list = []
 
     # make the list
-    for row in sheet.iterrows() :
+    for row in sheet.iterrows():
         # add to temperature list
         temperature_list.append(float(row[1].temperature_c))
 
@@ -65,19 +66,20 @@ def load_excel(file_name) :
         resistance_list.append(float(row[1].resistance_kohm) * 1000.0)
 
     # check the list
-    for i in range(len(temperature_list) - 1) :
-        if temperature_list[i + 1] < temperature_list[i] :
+    for i in range(len(temperature_list) - 1):
+        if temperature_list[i + 1] < temperature_list[i]:
             raise FloatingPointError(f'temperature[{i + 1}]({temperature_list[i + 1]}) is invalid', i)
 
     # check the list
-    for i in range(len(resistance_list) - 1) :
-        if resistance_list[i + 1] > resistance_list[i] :
+    for i in range(len(resistance_list) - 1):
+        if resistance_list[i + 1] > resistance_list[i]:
             raise FloatingPointError(f'resistance[{i + 1}]({resistance_list[i + 1]}) is invalid')
 
     # return the temperature and resistance list
     return temperature_list, resistance_list
 
-def write_header_file(file_name, temperature_list, resistance_list) :
+
+def write_header_file(file_name, temperature_list, resistance_list):
     """
     write c header
     :param file_name: file name
@@ -145,13 +147,13 @@ def write_header_file(file_name, temperature_list, resistance_list) :
  * @file      {file_name.lower()}.h
  * @brief     {file_name.lower().replace('_', ' ')} header file
  * @version   1.0.0
- * @author    LibDriver NTC Table Python Generator
+ * @author    LibDriver NTC Tool
  * @date      {formatted1}
  *
  * <h3>history</h3>
  * <table>
- * <tr><th>Date        <th>Version  <th>Author                                <th>Description
- * <tr><td>{formatted2}  <td>1.0      <td>LibDriver NTC Table Python Generator  <td>first upload
+ * <tr><th>Date        <th>Version  <th>Author              <th>Description
+ * <tr><td>{formatted2}  <td>1.0      <td>LibDriver NTC Tool  <td>first upload
  * </table>
  */
 
@@ -184,10 +186,11 @@ extern "C"{{
 """
 
     # output the file
-    with open(f"{file_name}.h", "w", encoding = "utf-8") as f :
+    with open(f"{file_name}.h", "w", encoding="utf-8") as f:
         f.write(header_content)
 
-def calculate_steinhart_hart(r1, t1_c, r2, t2_c, r3, t3_c) :
+
+def calculate_steinhart_hart(r1, t1_c, r2, t2_c, r3, t3_c):
     """
     calculate steinhart hart coefficient
     :param r1: r1
@@ -225,7 +228,8 @@ def calculate_steinhart_hart(r1, t1_c, r2, t2_c, r3, t3_c) :
     # return a, b and c
     return a, b, c
 
-class MainWindow(object) :
+
+class MainWindow(object):
     """
     main window class
     """
@@ -236,7 +240,7 @@ class MainWindow(object) :
     excel_temperature_list = []
     excel_resistance_list = []
 
-    def __init__(self) :
+    def __init__(self):
         """
         init window
         """
@@ -267,7 +271,7 @@ class MainWindow(object) :
         self.central_widget = None
         self.language_combobox = None
 
-    def setup_ui(self, main_window) :
+    def setup_ui(self, main_window):
         """
         setup ui
         :param main_window: main window
@@ -275,7 +279,7 @@ class MainWindow(object) :
         """
 
         # set main window name
-        if not main_window.objectName() :
+        if not main_window.objectName():
             main_window.setObjectName(u"MainWindow")
 
         # set window size
@@ -334,7 +338,7 @@ class MainWindow(object) :
         self.plot_view.setTitle("Temperature Dependence of Electrical Resistance")
         self.plot_view.setLabel('left', 'Resistance(kΩ)')
         self.plot_view.setLabel('bottom', 'Temperature(℃)')
-        self.plot_view.showGrid(x = True, y = True)
+        self.plot_view.showGrid(x=True, y=True)
 
         # tool button
         self.tool_button = QToolButton(self.central_widget)
@@ -443,29 +447,29 @@ class MainWindow(object) :
         main_window.setWindowTitle(u"LibDriver NTC Tool")
 
         # read data
-        try :
-            with open("config.json", "r", encoding = "utf-8") as f :
+        try:
+            with open("config.json", "r", encoding="utf-8") as f:
                 content = json.load(f)
                 index = content.get("language")
-                if index > 5 :
+                if index > 5:
                     index = 5
                 self.language_combobox.setCurrentIndex(index)
-        except FileNotFoundError :
-            with open("config.json", "w", encoding = "utf-8") as f :
+        except FileNotFoundError:
+            with open("config.json", "w", encoding="utf-8") as f:
                 data = {"language": 0}
-                json.dump(data, f, ensure_ascii = False, indent = 4)
+                json.dump(data, f, ensure_ascii=False, indent=4)
                 self.language_combobox.setCurrentIndex(0)
 
         self.retranslate_ui()
         QMetaObject.connectSlotsByName(main_window)
 
-    def retranslate_ui(self) :
+    def retranslate_ui(self):
         """
         retranslate ui
         :return: handle
         """
 
-        if self.language_combobox.currentIndex() == 0 :
+        if self.language_combobox.currentIndex() == 0:
             self.import_button.setText(u"Import Excel")
             font = QFont(["PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "sans-serif"], 8)
             font.setBold(True)
@@ -475,7 +479,7 @@ class MainWindow(object) :
             self.plot_view.setTitle("Temperature Dependence of Electrical Resistance")
             self.plot_view.setLabel('left', 'Resistance(kΩ)')
             self.plot_view.setLabel('bottom', 'Temperature(℃)')
-        elif self.language_combobox.currentIndex() == 1 :
+        elif self.language_combobox.currentIndex() == 1:
             self.import_button.setText(u"导入Excel")
             font = QFont(["PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "sans-serif"], 8)
             font.setBold(True)
@@ -485,7 +489,7 @@ class MainWindow(object) :
             self.plot_view.setTitle("电阻-温度特性")
             self.plot_view.setLabel('left', '电阻(kΩ)')
             self.plot_view.setLabel('bottom', '温度(℃)')
-        elif self.language_combobox.currentIndex() == 2 :
+        elif self.language_combobox.currentIndex() == 2:
             self.import_button.setText("匯入Excel")
             font = QFont(["PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "sans-serif"], 8)
             font.setBold(True)
@@ -495,7 +499,7 @@ class MainWindow(object) :
             self.plot_view.setTitle("電阻-溫度特性")
             self.plot_view.setLabel('left', '電阻(kΩ)')
             self.plot_view.setLabel('bottom', '溫度(℃)')
-        elif self.language_combobox.currentIndex() == 3 :
+        elif self.language_combobox.currentIndex() == 3:
             self.import_button.setText(u"Excelをインポート")
             font = QFont(["PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "sans-serif"], 7)
             font.setBold(True)
@@ -505,7 +509,7 @@ class MainWindow(object) :
             self.plot_view.setTitle("電気抵抗の温度依存性")
             self.plot_view.setLabel('left', '抵抗(kΩ)')
             self.plot_view.setLabel('bottom', '温度(℃)')
-        elif self.language_combobox.currentIndex() == 4 :
+        elif self.language_combobox.currentIndex() == 4:
             self.import_button.setText(u"Excel importieren")
             font = QFont(["PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "sans-serif"], 8)
             font.setBold(True)
@@ -515,7 +519,7 @@ class MainWindow(object) :
             self.plot_view.setTitle("Temperaturabhängigkeit des elektrischen Widerstands")
             self.plot_view.setLabel('left', 'Widerstand(kΩ)')
             self.plot_view.setLabel('bottom', 'Temperatur(℃)')
-        else :
+        else:
             self.import_button.setText(u"엑셀 가져오기")
             font = QFont(["PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "sans-serif"], 7)
             font.setBold(True)
@@ -543,7 +547,7 @@ class MainWindow(object) :
         self.t1_label.setText(u"T1")
         self.t2_label.setText(u"T2")
 
-    def import_button_clicked(self) :
+    def import_button_clicked(self):
         """
         import button clicked
         :return: none
@@ -558,13 +562,13 @@ class MainWindow(object) :
         )
 
         # set the file name
-        if self.excel_file_path :
+        if self.excel_file_path:
             try:
                 # load excel
                 self.excel_temperature_list, self.excel_resistance_list = load_excel(self.excel_file_path)
 
                 # print info
-                typer.secho(f"excel file path: {self.excel_file_path}", fg = typer.colors.WHITE)
+                typer.secho(f"excel file path: {self.excel_file_path}", fg=typer.colors.WHITE)
 
                 # init null
                 excel_resistance_display_list = []
@@ -575,7 +579,7 @@ class MainWindow(object) :
                 self.t2_combobox.clear()
 
                 # make display line and combobox data
-                for i in range(len(self.excel_resistance_list)) :
+                for i in range(len(self.excel_resistance_list)):
                     excel_resistance_display_list.append(self.excel_resistance_list[i] / 1000)
                     temp_str = f"{self.excel_temperature_list[i]}"
                     self.t0_combobox.addItem(temp_str)
@@ -587,82 +591,82 @@ class MainWindow(object) :
                 self.t2_combobox.setCurrentIndex(self.t1_combobox.count() - 1)
 
                 # fill the data
-                pen = pg.mkPen(color = 'y', width = 3)
+                pen = pg.mkPen(color='y', width=3)
                 self.plot_view.clear()
-                self.plot_view.addLegend(offset = (325, 20))
+                self.plot_view.addLegend(offset=(325, 20))
                 self.plot_view.plot(self.excel_temperature_list, excel_resistance_display_list,
-                                    pen = pen, symbol = 'o', symbolSize = 5, symbolBrush = 'r',
-                                    name = "Excel")
-            except FileNotFoundError :
+                                    pen=pen, symbol='o', symbolSize=5, symbolBrush='r',
+                                    name="Excel")
+            except FileNotFoundError:
                 # print error
-                typer.secho("file not found", fg = typer.colors.RED, err = True)
+                typer.secho("file not found", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "File not found")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "未发现文件")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "未發現文件")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "ファイルが見つかりません")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Datei nicht gefunden")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "파일을 찾을 수 없습니다.")
-            except ValueError :
+            except ValueError:
                 # print error
-                typer.secho("xlsx table name is not valid", fg = typer.colors.RED, err = True)
+                typer.secho("xlsx table name is not valid", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "xlsx table name is not valid")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "xlsx表格名字非法")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "xlsx表格名稱非法")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "xlsxテーブル名は無効です")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Der Name der XLSX-Tabelle ist ungültig.")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "xlsx 테이블 이름이 유효하지 않습니다.")
-            except AttributeError :
+            except AttributeError:
                 # print error
-                typer.secho("xlsx format is error", fg = typer.colors.RED, err = True)
+                typer.secho("xlsx format is error", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "xlsx format is error")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "xlsx格式错误")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "xlsx格式錯誤")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "xlsx形式にエラーがあります")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Das XLSX-Format ist fehlerhaft.")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "xlsx 형식이 오류입니다")
-            except FloatingPointError as e :
+            except FloatingPointError as e:
                 # print error
-                typer.secho(f"{e}", fg = typer.colors.RED, err = True)
+                typer.secho(f"{e}", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", f"{e}")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", f"{e}")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", f"{e}")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", f"{e}")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", f"{e}")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", f"{e}")
 
-    def tool_button_clicked(self) :
+    def tool_button_clicked(self):
         """
         tool button clicked
         :return: none
@@ -677,21 +681,21 @@ class MainWindow(object) :
         )
 
         # set output name
-        if file_path :
+        if file_path:
             self.output_name = file_path.split("/")[-1]
             self.line_edit.setText(self.output_name)
 
             # print info
-            typer.secho(f"output name: {self.output_name}", fg = typer.colors.WHITE)
+            typer.secho(f"output name: {self.output_name}", fg=typer.colors.WHITE)
 
-    def generate_button_clicked(self) :
+    def generate_button_clicked(self):
         """
         generate button clicked
         :return: none
         """
 
-        if len(self.excel_temperature_list) > 0 and len(self.excel_resistance_list) > 0 :
-            try :
+        if len(self.excel_temperature_list) > 0 and len(self.excel_resistance_list) > 0:
+            try:
                 # get output name
                 self.output_name = self.line_edit.text()
 
@@ -702,96 +706,96 @@ class MainWindow(object) :
                 write_header_file(self.output_name, self.excel_temperature_list, self.excel_resistance_list)
 
                 # print info
-                typer.secho("success", fg = typer.colors.GREEN)
+                typer.secho("success", fg=typer.colors.GREEN)
 
                 # open the folder
                 current_dir = Path(__file__).resolve().parent
                 QDesktopServices.openUrl(QUrl.fromLocalFile(str(current_dir)))
-            except FileNotFoundError :
+            except FileNotFoundError:
                 # print error
-                typer.secho("file not found", fg = typer.colors.RED, err = True)
+                typer.secho("file not found", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "File not found")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "未发现文件")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "未發現文件")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "ファイルが見つかりません")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Datei nicht gefunden")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "파일을 찾을 수 없습니다.")
-            except ValueError :
+            except ValueError:
                 # print error
-                typer.secho("xlsx table name is not valid", fg = typer.colors.RED, err = True)
+                typer.secho("xlsx table name is not valid", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "xlsx table name is not valid")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "xlsx表格名字非法")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "xlsx表格名稱非法")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "xlsxテーブル名は無効です")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Der Name der XLSX-Tabelle ist ungültig.")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "xlsx 테이블 이름이 유효하지 않습니다.")
-            except AttributeError :
+            except AttributeError:
                 # print error
-                typer.secho("xlsx format is error", fg = typer.colors.RED, err = True)
+                typer.secho("xlsx format is error", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "xlsx format is error")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "xlsx格式错误")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "xlsx格式錯誤")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "xlsx形式にエラーがあります")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Das XLSX-Format ist fehlerhaft.")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "xlsx 형식이 오류입니다")
-            except FloatingPointError as e :
+            except FloatingPointError as e:
                 # print error
-                typer.secho(f"{e}", fg = typer.colors.RED, err = True)
+                typer.secho(f"{e}", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", f"{e}")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", f"{e}")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", f"{e}")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", f"{e}")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", f"{e}")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", f"{e}")
-        else :
+        else:
             # info the message
-            if self.language_combobox.currentIndex() == 0 :
+            if self.language_combobox.currentIndex() == 0:
                 QMessageBox.critical(None, "Error", "No excel data")
-            elif self.language_combobox.currentIndex() == 1 :
+            elif self.language_combobox.currentIndex() == 1:
                 QMessageBox.critical(None, "错误", "未发现表格数据")
-            elif self.language_combobox.currentIndex() == 2 :
+            elif self.language_combobox.currentIndex() == 2:
                 QMessageBox.critical(None, "錯誤", "未發現表格資料")
-            elif self.language_combobox.currentIndex() == 3 :
+            elif self.language_combobox.currentIndex() == 3:
                 QMessageBox.critical(None, "エラー", "Excelデータはありません")
-            elif self.language_combobox.currentIndex() == 4 :
+            elif self.language_combobox.currentIndex() == 4:
                 QMessageBox.critical(None, "Fehler", "Keine Excel-Daten")
             else:
                 QMessageBox.critical(None, "오류", "엑셀 데이터 없음")
 
     @staticmethod
-    def calculate_temperature(r, a, b, c) :
+    def calculate_temperature(r, a, b, c):
         """
         calculate the steinhart-hart temperature
         :param r: input param r
@@ -808,31 +812,34 @@ class MainWindow(object) :
 
         return t_celsius
 
-    def calculate_button_clicked(self) :
+    def calculate_button_clicked(self):
         """
         calculate button clicked
         :return: none
         """
 
-        if len(self.excel_temperature_list) > 0 and len(self.excel_resistance_list) > 0 :
-            try :
+        if len(self.excel_temperature_list) > 0 and len(self.excel_resistance_list) > 0:
+            try:
                 # get the index
                 index_t0 = self.t0_combobox.currentIndex()
                 index_t1 = self.t1_combobox.currentIndex()
                 index_t2 = self.t2_combobox.currentIndex()
 
                 # calculate steinhart hart
-                A, B, C = calculate_steinhart_hart(self.excel_resistance_list[index_t0], self.excel_temperature_list[index_t0],
-                                                   self.excel_resistance_list[index_t1], self.excel_temperature_list[index_t1],
-                                                   self.excel_resistance_list[index_t2], self.excel_temperature_list[index_t2])
+                A, B, C = calculate_steinhart_hart(self.excel_resistance_list[index_t0],
+                                                   self.excel_temperature_list[index_t0],
+                                                   self.excel_resistance_list[index_t1],
+                                                   self.excel_temperature_list[index_t1],
+                                                   self.excel_resistance_list[index_t2],
+                                                   self.excel_temperature_list[index_t2])
 
                 # print info
-                typer.secho(f"temperature 0 is {self.excel_temperature_list[index_t0]:.2f}", fg = typer.colors.GREEN)
-                typer.secho(f"temperature 1 is {self.excel_temperature_list[index_t1]:.2f}", fg = typer.colors.GREEN)
-                typer.secho(f"temperature 2 is {self.excel_temperature_list[index_t2]:.2f}", fg = typer.colors.GREEN)
-                typer.secho(f"steinhart-hart A is {A:.8e}", fg = typer.colors.GREEN)
-                typer.secho(f"steinhart-hart B is {B:.8e}", fg = typer.colors.GREEN)
-                typer.secho(f"steinhart-hart C is {C:.8e}", fg = typer.colors.GREEN)
+                typer.secho(f"temperature 0 is {self.excel_temperature_list[index_t0]:.2f}", fg=typer.colors.GREEN)
+                typer.secho(f"temperature 1 is {self.excel_temperature_list[index_t1]:.2f}", fg=typer.colors.GREEN)
+                typer.secho(f"temperature 2 is {self.excel_temperature_list[index_t2]:.2f}", fg=typer.colors.GREEN)
+                typer.secho(f"steinhart-hart A is {A:.8e}", fg=typer.colors.GREEN)
+                typer.secho(f"steinhart-hart B is {B:.8e}", fg=typer.colors.GREEN)
+                typer.secho(f"steinhart-hart C is {C:.8e}", fg=typer.colors.GREEN)
 
                 # set the steinhart hart A, B and C
                 self.steinhart_hart_a_line_edit.setText(f"{A:.8e}")
@@ -840,131 +847,133 @@ class MainWindow(object) :
                 self.steinhart_hart_c_line_edit.setText(f"{C:.8e}")
 
                 # print info
-                typer.secho("success", fg = typer.colors.GREEN)
+                typer.secho("success", fg=typer.colors.GREEN)
 
                 excel_resistance_display_list = []
                 excel_steinhart_hart_display_list = []
 
                 # make display line and combobox data
-                for i in range(len(self.excel_resistance_list)) :
+                for i in range(len(self.excel_resistance_list)):
                     excel_resistance_display_list.append(self.excel_resistance_list[i] / 1000)
-                    excel_steinhart_hart_display_list.append(self.calculate_temperature(self.excel_resistance_list[i], A, B, C))
+                    excel_steinhart_hart_display_list.append(
+                        self.calculate_temperature(self.excel_resistance_list[i], A, B, C))
 
                 # fill the data
-                pen1 = pg.mkPen(color = 'y', width = 3)
+                pen1 = pg.mkPen(color='y', width=3)
                 self.plot_view.clear()
-                self.plot_view.addLegend(offset = (325, 20))
+                self.plot_view.addLegend(offset=(325, 20))
                 self.plot_view.plot(self.excel_temperature_list, excel_resistance_display_list,
-                                    pen = pen1, symbol = 'o', symbolSize = 5, symbolBrush = 'r',
-                                    name = "Excel")
+                                    pen=pen1, symbol='o', symbolSize=5, symbolBrush='r',
+                                    name="Excel")
 
-                pen2 = pg.mkPen(color = 'g', width = 3)
-                self.plot_view.addLegend(offset = (325, 20))
+                pen2 = pg.mkPen(color='g', width=3)
+                self.plot_view.addLegend(offset=(325, 20))
                 self.plot_view.plot(excel_steinhart_hart_display_list, excel_resistance_display_list,
-                                    pen = pen2, symbol = 'o', symbolSize = 5, symbolBrush = 'b',
-                                    name = "Steinhart Hart")
-            except FileNotFoundError :
+                                    pen=pen2, symbol='o', symbolSize=5, symbolBrush='b',
+                                    name="Steinhart Hart")
+            except FileNotFoundError:
                 # print error
-                typer.secho("file not found", fg = typer.colors.RED, err = True)
+                typer.secho("file not found", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "File not found")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "未发现文件")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "未發現文件")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "ファイルが見つかりません")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Datei nicht gefunden")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "파일을 찾을 수 없습니다.")
-            except ValueError :
+            except ValueError:
                 # print error
-                typer.secho("xlsx table name is not valid", fg = typer.colors.RED, err = True)
+                typer.secho("xlsx table name is not valid", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "xlsx table name is not valid")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "xlsx表格名字非法")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "xlsx表格名稱非法")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "xlsxテーブル名は無効です")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Der Name der XLSX-Tabelle ist ungültig.")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "xlsx 테이블 이름이 유효하지 않습니다.")
-            except AttributeError :
+            except AttributeError:
                 # print error
-                typer.secho("xlsx format is error", fg = typer.colors.RED, err = True)
+                typer.secho("xlsx format is error", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", "xlsx format is error")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", "xlsx格式错误")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", "xlsx格式錯誤")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", "xlsx形式にエラーがあります")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", "Das XLSX-Format ist fehlerhaft.")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", "xlsx 형식이 오류입니다")
-            except FloatingPointError as e :
+            except FloatingPointError as e:
                 # print error
-                typer.secho(f"{e}", fg = typer.colors.RED, err = True)
+                typer.secho(f"{e}", fg=typer.colors.RED, err=True)
 
                 # info the message
-                if self.language_combobox.currentIndex() == 0 :
+                if self.language_combobox.currentIndex() == 0:
                     QMessageBox.critical(None, "Error", f"{e}")
-                elif self.language_combobox.currentIndex() == 1 :
+                elif self.language_combobox.currentIndex() == 1:
                     QMessageBox.critical(None, "错误", f"{e}")
-                elif self.language_combobox.currentIndex() == 2 :
+                elif self.language_combobox.currentIndex() == 2:
                     QMessageBox.critical(None, "錯誤", f"{e}")
-                elif self.language_combobox.currentIndex() == 3 :
+                elif self.language_combobox.currentIndex() == 3:
                     QMessageBox.critical(None, "エラー", f"{e}")
-                elif self.language_combobox.currentIndex() == 4 :
+                elif self.language_combobox.currentIndex() == 4:
                     QMessageBox.critical(None, "Fehler", f"{e}")
-                else :
+                else:
                     QMessageBox.critical(None, "오류", f"{e}")
         else:
             # info the message
-            if self.language_combobox.currentIndex() == 0 :
+            if self.language_combobox.currentIndex() == 0:
                 QMessageBox.critical(None, "Error", "No excel data")
-            elif self.language_combobox.currentIndex() == 1 :
+            elif self.language_combobox.currentIndex() == 1:
                 QMessageBox.critical(None, "错误", "未发现表格数据")
-            elif self.language_combobox.currentIndex() == 2 :
+            elif self.language_combobox.currentIndex() == 2:
                 QMessageBox.critical(None, "錯誤", "未發現表格資料")
-            elif self.language_combobox.currentIndex() == 3 :
+            elif self.language_combobox.currentIndex() == 3:
                 QMessageBox.critical(None, "エラー", "Excelデータはありません")
-            elif self.language_combobox.currentIndex() == 4 :
+            elif self.language_combobox.currentIndex() == 4:
                 QMessageBox.critical(None, "Fehler", "Keine Excel-Daten")
             else:
                 QMessageBox.critical(None, "오류", "엑셀 데이터 없음")
 
-    def language_combobox_changed(self) :
+    def language_combobox_changed(self):
         """
         language combobox changed
         :return: none
         """
 
-        with open("config.json", "w", encoding = "utf-8") as f :
+        with open("config.json", "w", encoding="utf-8") as f:
             data = {"language": int(f"{self.language_combobox.currentIndex()}")}
-            json.dump(data, f, ensure_ascii = False, indent = 4)
+            json.dump(data, f, ensure_ascii=False, indent=4)
 
         # run the translation
         self.retranslate_ui()
 
-class GuiMainWindow(QMainWindow) :
+
+class GuiMainWindow(QMainWindow):
     """
     gui main window class
     """
 
-    def __init__(self) :
+    def __init__(self):
         """
         init the main window
         """
@@ -972,7 +981,8 @@ class GuiMainWindow(QMainWindow) :
         self.ui = MainWindow()
         self.ui.setup_ui(self)
 
-def run_gui() :
+
+def run_gui():
     """
     run the qt gui
     :return: none
@@ -996,7 +1006,8 @@ def run_gui() :
     # run the app
     sys.exit(app.exec())
 
-class CommandMode(str, Enum) :
+
+class CommandMode(str, Enum):
     """
     command mode enum class
     """
@@ -1005,27 +1016,31 @@ class CommandMode(str, Enum) :
     steinhart = "steinhart-hart"
     gui = "gui"
 
-def main(input_file_name: Annotated[str, typer.Option("--input-file", "-i", help = "Input Excel file name")] = 'ntc_table_template.xlsx',
-         output_file_name: Annotated[str, typer.Option("--output-file", "-o", help = "Output C header file name")] = 'driver_ntc_table.h',
-         command: Annotated[CommandMode, typer.Option("--command", "-c", help = "Command type, only header, steinhart-hart or gui")] = CommandMode.gui,
-         t0: Annotated[float, typer.Option("--temperature0", "-t0", help = "Steinhart-Hart temperature point 0")] = 0.0,
-         t1: Annotated[float, typer.Option("--temperature1", "-t1", help = "Steinhart-Hart temperature point 1")] = 25.0,
-         t2: Annotated[float, typer.Option("--temperature2", "-t2", help = "Steinhart-Hart temperature point 2")] = 80.0) :
+
+def main(input_file_name: Annotated[
+    str, typer.Option("--input-file", "-i", help="Input Excel file name")] = 'ntc_table_template.xlsx',
+         output_file_name: Annotated[
+             str, typer.Option("--output-file", "-o", help="Output C header file name")] = 'driver_ntc_table.h',
+         command: Annotated[CommandMode, typer.Option("--command", "-c",
+                                                      help="Command type, only header, steinhart-hart or gui")] = CommandMode.gui,
+         t0: Annotated[float, typer.Option("--temperature0", "-t0", help="Steinhart-Hart temperature point 0")] = 0.0,
+         t1: Annotated[float, typer.Option("--temperature1", "-t1", help="Steinhart-Hart temperature point 1")] = 25.0,
+         t2: Annotated[float, typer.Option("--temperature2", "-t2", help="Steinhart-Hart temperature point 2")] = 80.0):
     # header mode
-    if command == CommandMode.header :
+    if command == CommandMode.header:
         # print info
-        typer.secho("c header generator", fg = typer.colors.WHITE)
+        typer.secho("c header generator", fg=typer.colors.WHITE)
 
         # print info
-        typer.secho(f"input excel file: {input_file_name}", fg = typer.colors.WHITE)
+        typer.secho(f"input excel file: {input_file_name}", fg=typer.colors.WHITE)
 
         # print info
-        typer.secho(f"output c header file: {output_file_name}", fg = typer.colors.WHITE)
+        typer.secho(f"output c header file: {output_file_name}", fg=typer.colors.WHITE)
 
         # if including the .h and remove
         output_file_name = output_file_name.replace(".h", "")
 
-        try :
+        try:
             # load excel
             excel_temperature_list, excel_resistance_list = load_excel(input_file_name)
 
@@ -1033,33 +1048,33 @@ def main(input_file_name: Annotated[str, typer.Option("--input-file", "-i", help
             write_header_file(output_file_name, excel_temperature_list, excel_resistance_list)
 
             # print info
-            typer.secho("success", fg = typer.colors.GREEN)
-        except FileNotFoundError :
+            typer.secho("success", fg=typer.colors.GREEN)
+        except FileNotFoundError:
             # print error
-            typer.secho("file not found", fg = typer.colors.RED, err = True)
-        except ValueError :
+            typer.secho("file not found", fg=typer.colors.RED, err=True)
+        except ValueError:
             # print error
-            typer.secho("xlsx table name is not valid", fg = typer.colors.RED, err = True)
-        except AttributeError :
+            typer.secho("xlsx table name is not valid", fg=typer.colors.RED, err=True)
+        except AttributeError:
             # print error
-            typer.secho("xlsx format is error", fg = typer.colors.RED, err = True)
-        except FloatingPointError as e :
+            typer.secho("xlsx format is error", fg=typer.colors.RED, err=True)
+        except FloatingPointError as e:
             # print error
-            typer.secho(f"{e}", fg = typer.colors.RED, err = True)
+            typer.secho(f"{e}", fg=typer.colors.RED, err=True)
 
-    elif command == CommandMode.steinhart :
+    elif command == CommandMode.steinhart:
         # print info
-        typer.secho("Steinhart-Hart A B C calculator", fg = typer.colors.WHITE)
-
-        # print info
-        typer.secho(f"input excel file: {input_file_name}", fg = typer.colors.WHITE)
+        typer.secho("Steinhart-Hart A B C calculator", fg=typer.colors.WHITE)
 
         # print info
-        typer.secho(f"temperature point 0: {t0}℃", fg = typer.colors.WHITE)
-        typer.secho(f"temperature point 1: {t1}℃", fg = typer.colors.WHITE)
-        typer.secho(f"temperature point 2: {t2}℃", fg = typer.colors.WHITE)
+        typer.secho(f"input excel file: {input_file_name}", fg=typer.colors.WHITE)
 
-        try :
+        # print info
+        typer.secho(f"temperature point 0: {t0}℃", fg=typer.colors.WHITE)
+        typer.secho(f"temperature point 1: {t1}℃", fg=typer.colors.WHITE)
+        typer.secho(f"temperature point 2: {t2}℃", fg=typer.colors.WHITE)
+
+        try:
             # load excel
             excel_temperature_list, excel_resistance_list = load_excel(input_file_name)
 
@@ -1073,35 +1088,35 @@ def main(input_file_name: Annotated[str, typer.Option("--input-file", "-i", help
             index_t2 = -1
 
             # save t0 index
-            for i in range(len(excel_temperature_list)) :
+            for i in range(len(excel_temperature_list)):
                 # find the index
-                if excel_temperature_list[i] == t0 :
+                if excel_temperature_list[i] == t0:
                     # save the index
                     index_t0 = i
 
                     break
 
             # save t1 index
-            for i in range(len(excel_temperature_list)) :
+            for i in range(len(excel_temperature_list)):
                 # find the index
-                if excel_temperature_list[i] == t1 :
+                if excel_temperature_list[i] == t1:
                     # save the index
                     index_t1 = i
 
                     break
 
             # save t2 index
-            for i in range(len(excel_temperature_list)) :
+            for i in range(len(excel_temperature_list)):
                 # find the index
-                if excel_temperature_list[i] == t2 :
+                if excel_temperature_list[i] == t2:
                     # save the index
                     index_t2 = i
 
                     break
 
-            if (index_t0 == -1) | (index_t1 == -1) | (index_t2 == -1) :
+            if (index_t0 == -1) | (index_t1 == -1) | (index_t2 == -1):
                 # print error
-                typer.secho("no temperature point", fg = typer.colors.RED, err=True)
+                typer.secho("no temperature point", fg=typer.colors.RED, err=True)
 
                 return
 
@@ -1110,26 +1125,26 @@ def main(input_file_name: Annotated[str, typer.Option("--input-file", "-i", help
                                                excel_resistance_list[index_t2], excel_temperature_list[index_t2])
 
             # print info
-            typer.secho(f"steinhart-hart A is {A:.8e}", fg = typer.colors.GREEN)
-            typer.secho(f"steinhart-hart B is {B:.8e}", fg = typer.colors.GREEN)
-            typer.secho(f"steinhart-hart C is {C:.8e}", fg = typer.colors.GREEN)
+            typer.secho(f"steinhart-hart A is {A:.8e}", fg=typer.colors.GREEN)
+            typer.secho(f"steinhart-hart B is {B:.8e}", fg=typer.colors.GREEN)
+            typer.secho(f"steinhart-hart C is {C:.8e}", fg=typer.colors.GREEN)
 
             # print info
-            typer.secho("success", fg = typer.colors.GREEN)
-        except FileNotFoundError :
+            typer.secho("success", fg=typer.colors.GREEN)
+        except FileNotFoundError:
             # print error
-            typer.secho("file not found", fg = typer.colors.RED, err = True)
-        except ValueError :
+            typer.secho("file not found", fg=typer.colors.RED, err=True)
+        except ValueError:
             # print error
-            typer.secho("xlsx table name is not valid", fg = typer.colors.RED, err = True)
-        except AttributeError :
+            typer.secho("xlsx table name is not valid", fg=typer.colors.RED, err=True)
+        except AttributeError:
             # print error
-            typer.secho("xlsx format is error", fg = typer.colors.RED, err = True)
-        except FloatingPointError as e :
+            typer.secho("xlsx format is error", fg=typer.colors.RED, err=True)
+        except FloatingPointError as e:
             # print error
-            typer.secho(f"{e}", fg = typer.colors.RED, err=True)
+            typer.secho(f"{e}", fg=typer.colors.RED, err=True)
 
-    elif command == CommandMode.gui :
+    elif command == CommandMode.gui:
         # print info
         print("gui program")
 
@@ -1139,6 +1154,7 @@ def main(input_file_name: Annotated[str, typer.Option("--input-file", "-i", help
         # print info
         print("command not found")
 
-if __name__ == '__main__' :
+
+if __name__ == '__main__':
     # run the main function
     typer.run(main)
