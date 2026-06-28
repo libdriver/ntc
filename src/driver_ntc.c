@@ -1232,7 +1232,7 @@ uint8_t ntc_set_filter_kalman(ntc_handle_t *handle,
         x_estimated_value = handle->buf_flt[0];                           /* set x estimated value */
     }
     
-    handle->filter_len = 1;                                               /* set filter length 2 */
+    handle->filter_len = 1;                                               /* set filter length 1 */
     handle->filter_pointer = 0;                                           /* init 0 */
     handle->param_flt[0] = q_process_noise_covariance;                    /* q, process noise covariance */
     handle->param_flt[1] = r_measurement_noise_covariance;                /* r, measurement noise covariance */
