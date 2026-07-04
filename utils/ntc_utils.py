@@ -587,7 +587,7 @@ class MainWindow(object):
                     self.t2_combobox.addItem(temp_str)
 
                 # set the default display
-                self.t1_combobox.setCurrentIndex(self.t1_combobox.count() / 2)
+                self.t1_combobox.setCurrentIndex(self.t1_combobox.count() // 2)
                 self.t2_combobox.setCurrentIndex(self.t1_combobox.count() - 1)
 
                 # fill the data
@@ -1090,7 +1090,7 @@ def main(input_file_name: Annotated[
             # save t0 index
             for i in range(len(excel_temperature_list)):
                 # find the index
-                if excel_temperature_list[i] == t0:
+                if math.isclose(excel_temperature_list[i], t0):
                     # save the index
                     index_t0 = i
 
@@ -1099,7 +1099,7 @@ def main(input_file_name: Annotated[
             # save t1 index
             for i in range(len(excel_temperature_list)):
                 # find the index
-                if excel_temperature_list[i] == t1:
+                if math.isclose(excel_temperature_list[i], t1):
                     # save the index
                     index_t1 = i
 
@@ -1108,7 +1108,7 @@ def main(input_file_name: Annotated[
             # save t2 index
             for i in range(len(excel_temperature_list)):
                 # find the index
-                if excel_temperature_list[i] == t2:
+                if math.isclose(excel_temperature_list[i], t2):
                     # save the index
                     index_t2 = i
 

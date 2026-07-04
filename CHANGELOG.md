@@ -1,3 +1,9 @@
+## 1.0.3 (2026-07-05)
+
+## Bug Fixes
+
+- fix ntc_utils bugs
+
 ## 1.0.2 (2026-06-28)
 
 ## Bug Fixes
