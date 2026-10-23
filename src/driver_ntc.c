@@ -579,7 +579,7 @@ uint8_t ntc_set_circuit(ntc_handle_t *handle, ntc_circuit_t circuit)
     {
         return 2;                                /* return error */
     }
-    if (handle->debug_print == NULL)             /* check debug_print */
+    if (handle->inited != 1)                     /* check handle initialization */
     {
         return 3;                                /* return error */
     }
@@ -605,7 +605,7 @@ uint8_t ntc_get_circuit(ntc_handle_t *handle, ntc_circuit_t *circuit)
     {
         return 2;                                     /* return error */
     }
-    if (handle->debug_print == NULL)                  /* check debug_print */
+    if (handle->inited != 1)                          /* check handle initialization */
     {
         return 3;                                     /* return error */
     }
@@ -631,7 +631,7 @@ uint8_t ntc_set_circuit_fixed_resistor(ntc_handle_t *handle, float r_fixed_ohm)
     {
         return 2;                             /* return error */
     }
-    if (handle->debug_print == NULL)          /* check debug_print */
+    if (handle->inited != 1)                  /* check handle initialization */
     {
         return 3;                             /* return error */
     }
@@ -657,7 +657,7 @@ uint8_t ntc_get_circuit_fixed_resistor(ntc_handle_t *handle, float *r_fixed_ohm)
     {
         return 2;                              /* return error */
     }
-    if (handle->debug_print == NULL)           /* check debug_print */
+    if (handle->inited != 1)                   /* check handle initialization */
     {
         return 3;                              /* return error */
     }
@@ -676,7 +676,7 @@ uint8_t ntc_set_algorithm(ntc_handle_t *handle, ntc_algorithm_t algorithm)
     {
         return 2;                                    /* return error */
     }
-    if (handle->debug_print == NULL)                 /* check debug_print */
+    if (handle->inited != 1)                         /* check handle initialization */
     {
         return 3;                                    /* return error */
     }
@@ -702,7 +702,7 @@ uint8_t ntc_get_algorithm(ntc_handle_t *handle, ntc_algorithm_t *algorithm)
     {
         return 2;                                           /* return error */
     }
-    if (handle->debug_print == NULL)                        /* check debug_print */
+    if (handle->inited != 1)                                /* check handle initialization */
     {
         return 3;                                           /* return error */
     }
@@ -728,7 +728,7 @@ uint8_t ntc_set_algorithm_beta_formula_beta_value(ntc_handle_t *handle, float be
     {
         return 2;                           /* return error */
     }
-    if (handle->debug_print == NULL)        /* check debug_print */
+    if (handle->inited != 1)                /* check handle initialization */
     {
         return 3;                           /* return error */
     }
@@ -754,7 +754,7 @@ uint8_t ntc_get_algorithm_beta_formula_beta_value(ntc_handle_t *handle, float *b
     {
         return 2;                           /* return error */
     }
-    if (handle->debug_print == NULL)        /* check debug_print */
+    if (handle->inited != 1)                /* check handle initialization */
     {
         return 3;                           /* return error */
     }
@@ -780,7 +780,7 @@ uint8_t ntc_set_algorithm_beta_formula_r25_ohm(ntc_handle_t *handle, float r25_o
     {
         return 2;                           /* return error */
     }
-    if (handle->debug_print == NULL)        /* check debug_print */
+    if (handle->inited != 1)                /* check handle initialization */
     {
         return 3;                           /* return error */
     }
@@ -806,7 +806,7 @@ uint8_t ntc_get_algorithm_beta_formula_r25_ohm(ntc_handle_t *handle, float *r25_
     {
         return 2;                           /* return error */
     }
-    if (handle->debug_print == NULL)        /* check debug_print */
+    if (handle->inited != 1)                /* check handle initialization */
     {
         return 3;                           /* return error */
     }
@@ -834,7 +834,7 @@ uint8_t ntc_set_algorithm_steinhart_hart(ntc_handle_t *handle, double a, double 
     {
         return 2;                           /* return error */
     }
-    if (handle->debug_print == NULL)        /* check debug_print */
+    if (handle->inited != 1)                /* check handle initialization */
     {
         return 3;                           /* return error */
     }
@@ -864,7 +864,7 @@ uint8_t ntc_get_algorithm_steinhart_hart(ntc_handle_t *handle, double *a, double
     {
         return 2;                           /* return error */
     }
-    if (handle->debug_print == NULL)        /* check debug_print */
+    if (handle->inited != 1)                /* check handle initialization */
     {
         return 3;                           /* return error */
     }
@@ -886,8 +886,9 @@ uint8_t ntc_get_algorithm_steinhart_hart(ntc_handle_t *handle, double *a, double
  *            - 2 handle is NULL
  *            - 3 handle is not initialized
  *            - 4 table_len is 0
- *            - 5 table ohm is invalid
- *            - 6 table degrees celsius is invalid
+ *            - 5 table is NULL
+ *            - 6 table ohm is invalid
+ *            - 7 table degrees celsius is invalid
  * @note      none
  */
 uint8_t ntc_load_algorithm_lookup_table(ntc_handle_t *handle, const ntc_table_t *table, uint16_t table_len)
@@ -900,7 +901,7 @@ uint8_t ntc_load_algorithm_lookup_table(ntc_handle_t *handle, const ntc_table_t 
     {
         return 2;                                                                          /* return error */
     }
-    if (handle->debug_print == NULL)                                                       /* check debug_print */
+    if (handle->inited != 1)                                                               /* check handle initialization */
     {
         return 3;                                                                          /* return error */
     }
@@ -909,6 +910,12 @@ uint8_t ntc_load_algorithm_lookup_table(ntc_handle_t *handle, const ntc_table_t 
         handle->debug_print("ntc: table_len is 0.\n");                                     /* table_len is 0 */
         
         return 4;                                                                          /* return error */
+    }
+    if (table == NULL)                                                                     /* check the table */
+    {
+        handle->debug_print("ntc: table is NULL.\n");                                      /* table is NULL */
+        
+        return 5;                                                                          /* return error */
     }
     
     ohm = table[0].ohm;                                                                    /* set ohm */
@@ -919,13 +926,13 @@ uint8_t ntc_load_algorithm_lookup_table(ntc_handle_t *handle, const ntc_table_t 
         {
             handle->debug_print("ntc: table[%d] ohm is invalid.\n", i);                    /* table ohm is invalid */
             
-            return 5;                                                                      /* return error */
+            return 6;                                                                      /* return error */
         }
         if (table[i].degrees_celsius < degrees_celsius)                                    /* check degrees celsius */
         {
             handle->debug_print("ntc: table[%d] degrees celsius is invalid.\n", i);        /* table degrees celsius is invalid */
             
-            return 6;                                                                      /* return error */
+            return 7;                                                                      /* return error */
         }
         
         ohm = table[i].ohm;                                                                /* set ohm */
@@ -953,7 +960,7 @@ uint8_t ntc_set_filter(ntc_handle_t *handle, ntc_filter_t filter)
     {
         return 2;                              /* return error */
     }
-    if (handle->debug_print == NULL)           /* check debug_print */
+    if (handle->inited != 1)                   /* check handle initialization */
     {
         return 3;                              /* return error */
     }
@@ -979,7 +986,7 @@ uint8_t ntc_get_filter(ntc_handle_t *handle, ntc_filter_t *filter)
     {
         return 2;                                  /* return error */
     }
-    if (handle->debug_print == NULL)               /* check debug_print */
+    if (handle->inited != 1)                       /* check handle initialization */
     {
         return 3;                                  /* return error */
     }
@@ -998,7 +1005,7 @@ uint8_t ntc_set_filter_first_order_lag(ntc_handle_t *handle, float alpha)
     {
         return 2;                                                         /* return error */
     }
-    if (handle->debug_print == NULL)                                      /* check debug_print */
+    if (handle->inited != 1)                                              /* check handle initialization */
     {
         return 3;                                                         /* return error */
     }
@@ -1038,7 +1045,7 @@ uint8_t ntc_set_filter_median_length(ntc_handle_t *handle, uint16_t length)
     {
         return 2;                                                                  /* return error */
     }
-    if (handle->debug_print == NULL)                                               /* check debug_print */
+    if (handle->inited != 1)                                                       /* check handle initialization */
     {
         return 3;                                                                  /* return error */
     }
@@ -1076,7 +1083,7 @@ uint8_t ntc_set_filter_anti_spike_average_length(ntc_handle_t *handle, uint16_t 
     {
         return 2;                                                                  /* return error */
     }
-    if (handle->debug_print == NULL)                                               /* check debug_print */
+    if (handle->inited != 1)                                                       /* check handle initialization */
     {
         return 3;                                                                  /* return error */
     }
@@ -1108,7 +1115,7 @@ uint8_t ntc_set_filter_moving_average_length(ntc_handle_t *handle, uint16_t leng
     {
         return 2;                                                                  /* return error */
     }
-    if (handle->debug_print == NULL)                                               /* check debug_print */
+    if (handle->inited != 1)                                                       /* check handle initialization */
     {
         return 3;                                                                  /* return error */
     }
@@ -1142,7 +1149,7 @@ uint8_t ntc_set_filter_weighted_moving_average_length(ntc_handle_t *handle, floa
     {
         return 2;                                                                  /* return error */
     }
-    if (handle->debug_print == NULL)                                               /* check debug_print */
+    if (handle->inited != 1)                                                       /* check handle initialization */
     {
         return 3;                                                                  /* return error */
     }
@@ -1178,7 +1185,7 @@ uint8_t ntc_set_filter_limiting(ntc_handle_t *handle, float degrees_celsius)
     {
         return 2;                                                         /* return error */
     }
-    if (handle->debug_print == NULL)                                      /* check debug_print */
+    if (handle->inited != 1)                                              /* check handle initialization */
     {
         return 3;                                                         /* return error */
     }
@@ -1212,7 +1219,7 @@ uint8_t ntc_set_filter_kalman(ntc_handle_t *handle,
     {
         return 2;                                                         /* return error */
     }
-    if (handle->debug_print == NULL)                                      /* check debug_print */
+    if (handle->inited != 1)                                              /* check handle initialization */
     {
         return 3;                                                         /* return error */
     }
@@ -1258,7 +1265,7 @@ uint8_t ntc_reset_filter(ntc_handle_t *handle)
     {
         return 2;                           /* return error */
     }
-    if (handle->debug_print == NULL)        /* check debug_print */
+    if (handle->inited != 1)                /* check handle initialization */
     {
         return 3;                           /* return error */
     }
@@ -1759,6 +1766,7 @@ uint8_t ntc_calculate_temperature(ntc_handle_t *handle, float ohm, float *degree
  *             - 2 handle is NULL
  *             - 3 handle is not initialized
  *             - 4 convert failed
+ *             - 5 len is invalid
  * @note       this function can perform filtering processing, 
  *             does not rely on any adc read values
  */
@@ -1775,7 +1783,13 @@ uint8_t ntc_calculate_temperature_with_filter(ntc_handle_t *handle, float *ohm, 
     {
         return 3;                                              /* return error */
     }
-    
+   if (len > NTC_FILTER_BUFFER_SIZE)                           /* check range */
+   {
+       handle->debug_print("ntc: len is invalid.\n");          /* len is invalid */
+       
+       return 5;                                               /* return error */
+   }
+   
     for (i = 0; i < len; i++)                                  /* copy data */
     {
         handle->buf_flt[i] = ohm[i];                           /* copy data */

@@ -306,6 +306,7 @@ uint8_t ntc_calculate_temperature(ntc_handle_t *handle, float ohm, float *degree
  *             - 2 handle is NULL
  *             - 3 handle is not initialized
  *             - 4 convert failed
+ *             - 5 len is invalid
  * @note       this function can perform filtering processing, 
  *             does not rely on any adc read values
  */
@@ -428,8 +429,9 @@ uint8_t ntc_get_algorithm_steinhart_hart(ntc_handle_t *handle, double *a, double
  *            - 2 handle is NULL
  *            - 3 handle is not initialized
  *            - 4 table_len is 0
- *            - 5 table ohm is invalid
- *            - 6 table degrees celsius is invalid
+ *            - 5 table is NULL
+ *            - 6 table ohm is invalid
+ *            - 7 table degrees celsius is invalid
  * @note      none
  */
 uint8_t ntc_load_algorithm_lookup_table(ntc_handle_t *handle, const ntc_table_t *table, uint16_t table_len);
